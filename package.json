@@ -1,6 +1,5 @@
 {
   "name": "dc-imgbar",
-  "description": "the bar is a tool for modifying img",
   "main": "dc-imgbar.js",
   "dependencies": {
     "@polymer/polymer": "^3.0.0"
