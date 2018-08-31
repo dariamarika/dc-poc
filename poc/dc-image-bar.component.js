@@ -14,27 +14,11 @@ class ImageBar extends PolymerElement {
         .ul {
           margin: 0;
           padding: 0;
-        }        
-        .liButton {
-          border: 2px solid rgb(41, 77, 112);
-          background-color: rgb(13, 26, 38);            
-          color: rgb(236, 242, 248);
-          padding: 10px;
-          text-align: center;
-          text-decoration: none;
-          display: inline-block;
-          font-size: 16px;          
-          cursor: pointer;
-          transition-duration: 0.4s;
-          border-radius: 4px;
-      }
-      .liButton:hover {
-          background-color: rgb(28, 52, 74);            
-      }             
+        }
       </style>
-      <ul>
-        <li class="liButton" id="optionResize">Resize</li>
-        <li class="liButton" id="optionChangeImg">Change image</li>
+      <ul class="ul">
+        <li class="button" id="optionResize">Resize</li>
+        <li class="button" id="optionChangeImg">Change image</li>
       </ul>
     `;}
     static get properties() { return { targetImage: Object } }

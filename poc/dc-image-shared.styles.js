@@ -14,7 +14,7 @@ export const imageSharedStyles = html`
             flex-direction: column;
             font-family: sans-serif;
             font-size: 1.2em;
-            height: 60px;            
+            height: 50px;            
             left: 0;
             opacity: 0.95;   
             position: fixed;
