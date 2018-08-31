@@ -2,18 +2,18 @@ const imageBarTag = 'dc-image-bar';
 const imgTag = 'img';
 
 function resetImageBarElement() {
-    var imageBarToRemove = document.getElementsByTagName(imageBarTag);
-    for(var i = imageBarToRemove.length - 1; i >= 0; i--) {
-        if(imageBarToRemove[i]) {
-            document.body.removeChild(imageBarToRemove[i]);
+    var imageBarElement = document.getElementsByTagName(imageBarTag);
+    for(var i = imageBarElement.length - 1; i >= 0; i--) {
+        if(imageBarElement[i]) {
+            document.body.removeChild(imageBarElement[i]);
         }
     }
 }
 
 function createImageBarElement(target) {
-    var newImageBar = document.createElement(imageBarTag);
-    newImageBar.targetImage = target;
-    document.body.appendChild(newImageBar);
+    var newImageBarElement = document.createElement(imageBarTag);
+    newImageBarElement.targetImage = target;
+    document.body.appendChild(newImageBarElement);
 }
 
 document.addEventListener('click', function(e) {    
@@ -22,4 +22,3 @@ document.addEventListener('click', function(e) {
         createImageBarElement(e.target);        
     }   
 }, false);
-
