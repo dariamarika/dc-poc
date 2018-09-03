@@ -14,42 +14,46 @@ export const imageSharedStyles = html`
             flex-direction: column;
             font-family: sans-serif;
             font-size: 1.2em;
-            height: 50px;            
-            left: 0;
+            height: 50px;
+            left: 25%;
             opacity: 0.95;   
             position: fixed;
             top: 0;
-            width: 100%;                
+            width: 50%;                
         }
         .button {
+            background-color: rgb(13, 26, 38);
             border: 2px solid rgb(41, 77, 112);
-            background-color: rgb(13, 26, 38);            
+            border-radius: 4px;                        
             color: rgb(236, 242, 248);
-            padding: 10px 32px;
+            cursor: pointer;
+            display: inline-block;
+            font-size: 1em;
+            margin: 4px 2px;
+            padding: 7px 25px;                     
             text-align: center;
             text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            margin: 4px 2px;
-            cursor: pointer;
             transition-duration: 0.4s;
-            border-radius: 4px;
         }
         .button:hover {
             background-color: rgb(28, 52, 74);            
         }
         .input {
-            display: inline-block;
-            border: 2px solid rgb(41, 77, 112);
             background-color: rgb(218, 230, 241);
-            padding: 10px 32px;
-            font-size: 16px;            
-            width: 20%;
+            border: 2px solid rgb(41, 77, 112);
             border-radius: 4px;
-            margin: 0 5px;            
+            display: inline-block;  
+            height: 32px;                      
+            font-size: 1em;
+            margin: 0 5px;
+            padding: 0 10px;                     
+            width: 20%;
         }          
-        .form {
-            width: 50%;
-        }              
+        .content {
+            margin: 0;
+            padding: 0;
+            text-align: center;                     
+            width: 100%;
+        }                   
     </style>
 `;

@@ -4,10 +4,10 @@ import { imageSharedStyles } from './dc-image-shared.styles';
 export { ImageResize };
 
 class ImageResize extends PolymerElement {
-    static get template() {     
+    static get template() {
       return html`
-      ${imageSharedStyles}
-        <form class="form"
+        ${imageSharedStyles}
+        <form class="content"
           <label for="dcImageResizeWidthId">Width</label>
           <input class="input" type="text" id="dcImageResizeWidthId" />
           <label for="dcImageResizeHeightId">Height</label>            
@@ -34,4 +34,4 @@ class ImageResize extends PolymerElement {
     }
   }
   
-  customElements.define('dc-image-resize', ImageResize);
+customElements.define('dc-image-resize', ImageResize);
