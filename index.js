@@ -1,13 +1,23 @@
 const imageBarTag = 'dc-image-bar';
+const imageChangeSrcTag = 'dc-image-change';
+const imageResizeTag = 'dc-image-resize';
 const imgTag = 'img';
+const escKey = 27;
 
-function resetImageBarElement() {
-    var imageBarElement = document.getElementsByTagName(imageBarTag);
-    for(var i = imageBarElement.length - 1; i >= 0; i--) {
-        if(imageBarElement[i]) {
-            document.body.removeChild(imageBarElement[i]);
+function resetImageBarElements() {
+    var tagsToReset = [];
+    tagsToReset.push(imageBarTag);
+    tagsToReset.push(imageChangeSrcTag);
+    tagsToReset.push(imageResizeTag);
+
+    tagsToReset.forEach(tag => {
+        var imageBarElement = document.getElementsByTagName(tag);
+        for(var i = imageBarElement.length - 1; i >= 0; i--) {
+            if(imageBarElement[i]) {
+                document.body.removeChild(imageBarElement[i]);
+            }
         }
-    }
+    });    
 }
 
 function createImageBarElement(target) {
@@ -16,9 +26,18 @@ function createImageBarElement(target) {
     document.body.appendChild(newImageBarElement);
 }
 
-document.addEventListener('click', function(e) {    
-    if (e.target && e.target.tagName.toLowerCase() === imgTag) {       
-        resetImageBarElement();
+function manageImageBarElement(e) {
+    if (e.target && e.target.tagName.toLowerCase() == imgTag) {       
+        resetImageBarElements();
         createImageBarElement(e.target);        
-    }   
-}, false);
+    } 
+}
+
+function isEscKeyPressed(e) {
+    if(e.keyCode == escKey) {        
+        resetImageBarElements();                    
+    }
+}
+
+document.addEventListener('click', manageImageBarElement, false);
+window.addEventListener('keydown', isEscKeyPressed, false);
