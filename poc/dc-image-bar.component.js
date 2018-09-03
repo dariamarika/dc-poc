@@ -13,34 +13,40 @@ class ImageBar extends PolymerElement {
       <ul class="content">
         <li class="button" id="optionResize">Resize</li>
         <li class="button" id="optionChangeImg">Change image</li>
+        <li class="button" id="optionRestore">Restore</li>
       </ul>
-    `;}
+    `;
+  }
 
   static get properties() { return { targetImage: Object } }
 
-  constructor() {
-    super();    
+  restoreValues() {    
+    var originalValue = JSON.parse(sessionStorage.getItem(this.targetImage.id)) || {};    
+    this.targetImage.setAttribute('src', originalValue ? originalValue.src : this.targetImage.src);
+    this.targetImage.setAttribute('width', originalValue ? originalValue.width : this.targetImage.width);
+    this.targetImage.setAttribute('height', originalValue ? originalValue.height : this.targetImage.height);    
   }
-  
+
   ready() {
     super.ready();
-    this.$.optionResize.addEventListener('click', () => {this.handleClick(imageResizeTag)});
-    this.$.optionChangeImg.addEventListener('click', () => {this.handleClick(imageChangeTag)});      
+    this.$.optionResize.addEventListener('click', () => { this.handleClick(imageResizeTag) });
+    this.$.optionChangeImg.addEventListener('click', () => { this.handleClick(imageChangeTag) });
+    this.$.optionRestore.addEventListener('click', () => { this.restoreValues() });
   }
-  
+
   handleClick(option) {
     document.body.removeChild(this);
     switch (option) {
       case imageResizeTag:
-        document.body.appendChild(new ImageResize(this.targetImage));          
+        document.body.appendChild(new ImageResize(this.targetImage));
         break;
       case imageChangeTag:
-        document.body.appendChild(new ImageChange(this.targetImage));          
+        document.body.appendChild(new ImageChange(this.targetImage));
         break;
       default:
-        return;  
-      }                
+        return;
     }
   }
-  
+}
+
 customElements.define('dc-image-bar', ImageBar);
