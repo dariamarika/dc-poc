@@ -26,24 +26,24 @@ class ImageChange extends PolymerElement {
                 <button class="button" type="button" id="imgBarSrcBtn">Save</button>        
             </form>        
         `;
-    }    
+    }
 
-    constructor(target) {        
+    constructor(target) {
         super();
-        this.target = target;    
+        this.target = target;        
     }
 
     ready() {
         super.ready();
-        this.$.imgBarSrcBtn.addEventListener('click', () => {this.handleClick()});
+        this.$.imgBarSrcBtn.addEventListener('click', () => { this.handleClick() });
     }
-    
+
     handleClick() {
-        if (this.$.imgBarSrcInput.value) {
-          this.target.src = this.$.imgBarSrcInput.value;
-          document.body.removeChild(this);          
-        }      
+        if (this.$.imgBarSrcInput.value) {            
+            this.target.setAttribute('src', this.$.imgBarSrcInput.value);
+            document.body.removeChild(this);
+        }
     }
 }
-  
+
 customElements.define('dc-image-change', ImageChange);
