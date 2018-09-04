@@ -1,10 +1,12 @@
 import { PolymerElement, html } from '@polymer/polymer/polymer-element.js';
+import { GestureEventListeners } from '@polymer/polymer/lib/mixins/gesture-event-listeners.js';
+import * as Gestures from '@polymer/polymer/lib/utils/gestures.js';
 import { imageSharedStyles } from './dc-image-shared.styles';
 import { restoreValues } from './dc-shared.js';
 
 export { ImageChange };
 
-class ImageChange extends PolymerElement {
+class ImageChange extends GestureEventListeners(PolymerElement) {
     static get template() {
         return html`
             ${imageSharedStyles}
@@ -20,26 +22,30 @@ class ImageChange extends PolymerElement {
                     padding: 0 10px;                     
                     width: 45%;
                 }
-            </style>
+                .dragg {
+                    
+                }
+            </style>            
             <form class="form"
                 <label for="imgBarSrcInput">New image path</label>
                 <input class="input" type="text" id="imgBarSrcInput" />
-                <button class="button" type="button" id="imgBarSrcBtn">Save</button>        
-            </form>        
+                <button class="button" type="button" id="imgBarSrcBtn" on-tap="tapHandler">Save</button>        
+            </form>                            
         `;
     }
 
     constructor(target) {
         super();
-        this.target = target;        
+        this.target = target;
+        Gestures.removeListener(this, 'tap', this.tapHandler.bind(this));
     }
 
-    ready() {
-        super.ready();
-        this.$.imgBarSrcBtn.addEventListener('click', () => { this.handleClick() });
+    disconnectedCallback() {
+        super.disconnectedCallback();
+        Gestures.removeListener(this, 'tap', this.tapHandler.bind(this));
     }
 
-    handleClick() {
+    tapHandler() {
         this.target.setAttribute('src', this.$.imgBarSrcInput.value || restoreValues(this.target).src);
         document.body.removeChild(this);
     }

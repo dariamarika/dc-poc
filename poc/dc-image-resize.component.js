@@ -1,10 +1,12 @@
 import { PolymerElement, html } from '@polymer/polymer/polymer-element.js';
+import { GestureEventListeners } from '@polymer/polymer/lib/mixins/gesture-event-listeners.js';
+import * as Gestures from '@polymer/polymer/lib/utils/gestures.js';
 import { imageSharedStyles } from './dc-image-shared.styles';
 import { restoreValues } from './dc-shared.js';
 
 export { ImageResize };
 
-class ImageResize extends PolymerElement {
+class ImageResize extends GestureEventListeners(PolymerElement) {
   static get template() {
     return html`
         ${imageSharedStyles}
@@ -13,7 +15,7 @@ class ImageResize extends PolymerElement {
           <input class="input" type="text" id="dcImageResizeWidthId" />
           <label for="dcImageResizeHeightId">Height</label>            
           <input class="input" type="text" id="dcImageResizeHeightId" />
-          <button class="button" type="button" id="dcImageResizeSaveButtonId">Save</button>        
+          <button class="button" type="button" id="dcImageResizeSaveButtonId" on-tap="tapHandler">Save</button>        
         </form>        
       `;
   }
@@ -21,14 +23,15 @@ class ImageResize extends PolymerElement {
   constructor(target) {
     super();
     this.target = target;
+    Gestures.removeListener(this, 'tap', this.tapHandler.bind(this));
   }
 
-  ready() {
-    super.ready();
-    this.$.dcImageResizeSaveButtonId.addEventListener('click', () => { this.handleClick() });
-  }
+  disconnectedCallback() {
+    super.disconnectedCallback();
+    Gestures.removeListener(this, 'tap', this.tapHandler.bind(this));
+}
 
-  handleClick() {
+  tapHandler() {
     var restoredImg = restoreValues(this.target);
     this.target.setAttribute('width', this.$.dcImageResizeWidthId.value || restoredImg.width);
     this.target.setAttribute('height', this.$.dcImageResizeHeightId.value || restoredImg.height);
