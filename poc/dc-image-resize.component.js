@@ -1,5 +1,6 @@
 import { PolymerElement, html } from '@polymer/polymer/polymer-element.js';
 import { imageSharedStyles } from './dc-image-shared.styles';
+import { restoreValues } from './dc-shared.js';
 
 export { ImageResize };
 
@@ -28,8 +29,9 @@ class ImageResize extends PolymerElement {
   }
 
   handleClick() {
-    this.target.setAttribute('width', this.$.dcImageResizeWidthId.value);
-    this.target.setAttribute('height', this.$.dcImageResizeHeightId.value);
+    var restoredImg = restoreValues(this.target);
+    this.target.setAttribute('width', this.$.dcImageResizeWidthId.value || restoredImg.width);
+    this.target.setAttribute('height', this.$.dcImageResizeHeightId.value || restoredImg.height);
     document.body.removeChild(this);
   }
 }

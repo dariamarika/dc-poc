@@ -1,5 +1,6 @@
 import { PolymerElement, html } from '@polymer/polymer/polymer-element.js';
 import { imageSharedStyles } from './dc-image-shared.styles';
+import { restoreValues } from './dc-shared.js';
 
 export { ImageChange };
 
@@ -39,10 +40,8 @@ class ImageChange extends PolymerElement {
     }
 
     handleClick() {
-        if (this.$.imgBarSrcInput.value) {            
-            this.target.setAttribute('src', this.$.imgBarSrcInput.value);
-            document.body.removeChild(this);
-        }
+        this.target.setAttribute('src', this.$.imgBarSrcInput.value || restoreValues(this.target).src);
+        document.body.removeChild(this);
     }
 }
 

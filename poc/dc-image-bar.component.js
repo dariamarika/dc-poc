@@ -2,6 +2,7 @@ import { PolymerElement, html } from '@polymer/polymer/polymer-element.js';
 import { imageSharedStyles } from './dc-image-shared.styles.js';
 import { ImageResize } from './dc-image-resize.component.js'
 import { ImageChange } from './dc-image-change-src.component.js'
+import { restoreValues } from './dc-shared.js';
 
 const imageResizeTag = 'dc-image-resize';
 const imageChangeTag = 'dc-image-change';
@@ -20,18 +21,19 @@ class ImageBar extends PolymerElement {
 
   static get properties() { return { targetImage: Object } }
 
-  restoreValues() {    
-    var originalValue = JSON.parse(sessionStorage.getItem(this.targetImage.id)) || {};    
-    this.targetImage.setAttribute('src', originalValue ? originalValue.src : this.targetImage.src);
-    this.targetImage.setAttribute('width', originalValue ? originalValue.width : this.targetImage.width);
-    this.targetImage.setAttribute('height', originalValue ? originalValue.height : this.targetImage.height);    
+  handleRestore() {    
+    var restoredImg = restoreValues(this.targetImage);
+    
+    this.targetImage.setAttribute('src', restoredImg.src);
+    this.targetImage.setAttribute('width', restoredImg.width);
+    this.targetImage.setAttribute('height', restoredImg.height);    
   }
 
   ready() {
     super.ready();
     this.$.optionResize.addEventListener('click', () => { this.handleClick(imageResizeTag) });
     this.$.optionChangeImg.addEventListener('click', () => { this.handleClick(imageChangeTag) });
-    this.$.optionRestore.addEventListener('click', () => { this.restoreValues() });
+    this.$.optionRestore.addEventListener('click', () => { this.handleRestore() });
   }
 
   handleClick(option) {
