@@ -66,7 +66,7 @@ function storeImages() {
             sessionStorage.removeItem(images[i].id);
 
             // generate id            
-            images[i].id = images[i].id ? images[i].id : generateGuid();
+            images[i].id = images[i].id || generateGuid();
 
             // store image
             sessionStorage.setItem(images[i].id, JSON.stringify({ src: images[i].src, width: images[i].width, height: images[i].height }));
