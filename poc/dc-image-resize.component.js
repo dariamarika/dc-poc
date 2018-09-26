@@ -29,13 +29,29 @@ class ImageResize extends GestureEventListeners(PolymerElement) {
   disconnectedCallback() {
     super.disconnectedCallback();
     Gestures.removeListener(this, 'tap', this.tapHandler.bind(this));
-}
+  }
 
   tapHandler() {
-    var restoredImg = restoreValues(this.target);
-    this.target.setAttribute('width', this.$.dcImageResizeWidthId.value || restoredImg.width);
-    this.target.setAttribute('height', this.$.dcImageResizeHeightId.value || restoredImg.height);
-    document.body.removeChild(this);
+    if (this.$.dcImageResizeWidthId.value || this.$.dcImageResizeHeightId.value) {
+      var restoredImg = restoreValues(this.target);
+      var originalRatio = restoredImg.height ? restoredImg.width / restoredImg.height : 1;
+      var width = 0;
+      var height = 0;
+
+      if (this.$.dcImageResizeWidthId.value && !this.$.dcImageResizeHeightId.value) {
+        width = this.$.dcImageResizeWidthId.value;
+        height = restoredImg.width * originalRatio;
+      }
+
+      if (!this.$.dcImageResizeWidthId.value && this.$.dcImageResizeHeightId.value) {
+        width = this.$.dcImageResizeHeightId.value * originalRatio;
+        height = this.$.dcImageResizeHeightId.value
+      }
+
+      this.target.setAttribute('width', this.$.dcImageResizeWidthId.value || width);
+      this.target.setAttribute('height', this.$.dcImageResizeHeightId.value || height);
+      document.body.removeChild(this);
+    }
   }
 }
 
